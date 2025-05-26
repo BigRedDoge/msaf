@@ -1,9 +1,11 @@
 import glob
-import imp
-
+import importlib.util
 from setuptools import find_packages, setup
 
-version = imp.load_source("msaf.version", "msaf/version.py")
+# Load version from file
+spec = importlib.util.spec_from_file_location("msaf.version", "msaf/version.py")
+version = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(version)
 
 # MSAF configuration
 setup(
@@ -28,12 +30,14 @@ setup(
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Topic :: Multimedia :: Sound/Audio :: Analysis",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     keywords="audio music sound",
     license="MIT",
@@ -41,7 +45,6 @@ setup(
         "audioread",
         "cvxopt",
         "decorator",
-        "enum34",
         "future",
         "jams >= 0.3.0",
         "joblib",
@@ -52,7 +55,7 @@ setup(
         "pandas",
         "scikit-learn >= 0.17.0",
         "scipy >= 0.13.0",
-        "seaborn",  # For notebook example (but everyone should have this :-))
+        "seaborn",  # For notebook example
         "vmo >= 0.3.3",
     ],
     extras_require={

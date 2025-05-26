@@ -148,9 +148,17 @@ copyright = "2015-2018, msaf development team"
 # built documents.
 #
 
-import imp
+import importlib.util
 
-msaf = imp.load_source("msaf.version", "../msaf/version.py")
+# Create a module spec from the file location
+spec = importlib.util.spec_from_file_location("msaf.version", "../msaf/version.py")
+
+# Create a new module based on the spec
+msaf = importlib.util.module_from_spec(spec)
+
+# Execute the module's code to populate it
+spec.loader.exec_module(msaf)
+
 # The short X.Y version.
 version = msaf.short_version
 # The full version, including alpha/beta/rc tags.
